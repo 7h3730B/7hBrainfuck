@@ -1,2 +1,2 @@
 # 7hBrainfuck
-My own little Brainfuck "compiler" as a npm moduel
+A webpage to execute Brainfuck code and watch it execute this code
