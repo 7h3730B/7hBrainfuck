@@ -1,0 +1,23 @@
+{
+  "name": "7hbrainfuck",
+  "version": "1.0.0",
+  "description": "A webpage to execute Brainfuck code and watch it execute this code",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/7h3730B/7hBrainfuck.git"
+  },
+  "author": "7h3730B",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/7h3730B/7hBrainfuck/issues"
+  },
+  "homepage": "https://github.com/7h3730B/7hBrainfuck#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}

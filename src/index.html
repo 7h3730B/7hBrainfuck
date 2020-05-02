@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Brainfuck Executer</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" type="text/css" href="./main.css">
+    </link>
+    <script defer src="./index.js"></script>
+</head>
+
+<body>
+
+    <div id="page">
+        <section id="editor">
+            <button class="button" id="play">Play</button>
+            <button class="button" id="step">Step</button>
+            <button class="button" hidden id="pause">Pause</button>
+            <button class="button" hidden id="stop">Stop</button>
+            <button class="button" hidden id="continue">continue</button>
+            <div id="input-div">
+                <textarea id="source">
+                test
+            </textarea>
+            </div>
+        </section>
+        <section id="output">
+            <h2>Output:</h3>
+            <pre id="output-pre"></pre>
+        </section>
+    </div>
+
+</body>
+
+</html>
