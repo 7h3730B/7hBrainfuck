@@ -1,9 +1,10 @@
 class Interpreter {
-    constructor(program, output, input, interval) {
+    constructor(program, output, input, table, interval) {
         this.program = program;
         this.output = output;
         this.input = input;
-        this.interval = interval;
+        this.table = table,
+            this.interval = interval;
         this.programStep = 0;
         this.mem = [0];
         this.memPos = 0;
@@ -78,8 +79,13 @@ class Interpreter {
                 }
                 break;
         }
-        console.log(_this.mem);
+        _this.updateMemory();
         _this.programStep += 1;
+    }
+    updateMemory() {
+        for (let i = 0; i < this.mem.length; i++) {
+            console.log(i);
+        }
     }
 }
 
@@ -91,14 +97,14 @@ let continueBtn = document.getElementById('continue');
 
 let delay = 50;
 let interval;
-let interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'), document.getElementById("input"), interval);;
+let interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'), document.getElementById("input"), document.getElementById("ptr-table"), interval);
 
 function play() {
     interpreter.memPos = 0;
     interpreter.mem = [0];
     interpreter.programStep = 0;
     interpreter.output.innerHTML = '';
-    interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'), document.getElementById("input"), interval);
+    interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'), document.getElementById("input"), document.getElementById("ptr-table"), interval);
     interval = setInterval(interpreter.step.bind(interpreter), delay);
     playBtn.setAttribute('hidden', true);
     stepBtn.setAttribute('hidden', true);
