@@ -47,7 +47,6 @@ class Interpreter {
                 }
                 break;
             case '.':
-                console.log(String.fromCharCode(_this.mem[_this.memPos]));
                 _this.output.innerHTML += String.fromCharCode(_this.mem[_this.memPos]);
                 break;
             case ',':
@@ -60,11 +59,21 @@ class Interpreter {
     }
 }
 
+let stepBtn = document.getElementById('step');
+let playBtn = document.getElementById('play');
+let pauseBtn = document.getElementById('pause');
+let stopBtn = document.getElementById('stop');
+let continueBtn = document.getElementById('continue');
+
 let interval;
 let interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'), document.getElementById("input"), interval);
 
 function play() {
     interval = setInterval(interpreter.step.bind(interpreter), 300);
+    playBtn.setAttribute('hidden', true);
+    stepBtn.setAttribute('hidden', true);
+    pauseBtn.removeAttribute('hidden');
+    stopBtn.removeAttribute('hidden');
 }
 
 function step() {
@@ -72,8 +81,35 @@ function step() {
     interpreter.step();
 }
 
-let playBtn = document.getElementById('play');
-playBtn.onclick = play;
+function pause() {
+    clearInterval(interval);
+    pauseBtn.setAttribute('hidden', true);
+    continueBtn.removeAttribute('hidden');
+}
 
-let stepBtn = document.getElementById('step');
+function continuef() {
+    interval = setInterval(interpreter.step.bind(interpreter), 300);
+    continueBtn.setAttribute('hidden', true);
+    playBtn.setAttribute('hidden', true);
+    stepBtn.setAttribute('hidden', true);
+    pauseBtn.removeAttribute('hidden');
+    stopBtn.removeAttribute('hidden');
+}
+
+function stopbs() {
+    clearInterval(interval);
+    interpreter.memPos = 0;
+    interpreter.mem = [0];
+    interpreter.programStep = 0;
+    stopBtn.setAttribute('hidden', true);
+    pauseBtn.setAttribute('hidden', true);
+    continueBtn.setAttribute('hidden', true);
+    playBtn.removeAttribute('hidden');
+    stepBtn.removeAttribute('hidden');
+}
+
+playBtn.onclick = play;
+pauseBtn.onclick = pause;
+stopBtn.onclick = stopbs;
+continueBtn.onclick = continuef;
 stepBtn.onclick = step;
