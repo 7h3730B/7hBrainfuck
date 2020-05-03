@@ -7,12 +7,16 @@ class Interpreter {
         this.programStep = 0;
         this.mem = [0];
         this.memPos = 0;
-        this.tokens = ['+', '-', '>', '<', '.', ','];
+        this.tokens = ['+', '-', '>', '<', '.', ',', '[', ']'];
     }
     step() {
         _this = this;
         if (_this.programStep > _this.program.length) {
             clearInterval(_this.interval);
+            playBtn.removeAttribute('hidden');
+            stepBtn.removeAttribute('hidden');
+            pauseBtn.setAttribute('hidden', true);
+            stopBtn.setAttribute('hidden', true);
             return;
         }
 
@@ -25,26 +29,22 @@ class Interpreter {
         switch (_this.program[_this.programStep]) {
             case '>':
                 _this.memPos += 1;
-                if (_this.mem.length < _this.memPos);
-                _this.mem.push(0);
+                if (_this.mem.length <= _this.memPos) _this.mem.push(0);
                 break;
             case '<':
                 _this.memPos -= 1;
                 if (_this.memPos < 0) {
                     // TODO: error Handling: Out of memory
+                    console.log("AHHHHHHHHHHHHHHHH");
                 }
                 break;
             case '+':
                 _this.mem[_this.memPos] += 1;
-                if (_this.mem[_this.memPos] > 255) {
-                    _this.mem[_this.memPos] = 0;
-                }
+                if (_this.mem[_this.memPos] > 255) _this.mem[_this.memPos] = 0;
                 break;
             case '-':
                 _this.mem[_this.memPos] -= 1;
-                if (_this.mem[_this.memPos] <= -1) {
-                    _this.mem[_this.memPos] = 255;
-                }
+                if (_this.mem[_this.memPos] <= -1) _this.mem[_this.memPos] = 255;
                 break;
             case '.':
                 _this.output.innerHTML += String.fromCharCode(_this.mem[_this.memPos]);
@@ -52,6 +52,30 @@ class Interpreter {
             case ',':
                 let chr = window.prompt("Only one Ascii Character", "Enter a Character");
                 _this.mem[_this.memPos] = chr.charCodeAt(0);
+                break;
+            case '[':
+                if (_this.mem[_this.memPos] == 0) {
+                    countOpened = 0;
+                    _this.programStep += 1;
+                    while (_this.programStep < _this.program.length) {
+                        if (_this.program[_this.programStep] == ']' && countOpened == 0) break;
+                        else if (_this.program[_this.programStep] == '[') countOpened += 1;
+                        else if (_this.program[_this.programStep] == ']') countOpened -= 1;
+                        _this.programStep += 1;
+                    }
+                }
+                break;
+            case ']':
+                if (_this.mem[_this.memPos] != 0) {
+                    countOpened = 0;
+                    _this.programStep -= 1;
+                    while (_this.programStep >= 0) {
+                        if (_this.program[_this.programStep] == '[' && countOpened == 0) break;
+                        else if (_this.program[_this.programStep] == ']') countOpened += 1;
+                        else if (_this.program[_this.programStep] == '[') countOpened -= 1;
+                        _this.programStep -= 1;
+                    }
+                }
                 break;
         }
         console.log(_this.mem);
@@ -66,10 +90,11 @@ let stopBtn = document.getElementById('stop');
 let continueBtn = document.getElementById('continue');
 
 let interval;
-let interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'), document.getElementById("input"), interval);
+let interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'), document.getElementById("input"), interval);;
 
 function play() {
-    interval = setInterval(interpreter.step.bind(interpreter), 300);
+    interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'), document.getElementById("input"), interval);
+    interval = setInterval(interpreter.step.bind(interpreter), 50);
     playBtn.setAttribute('hidden', true);
     stepBtn.setAttribute('hidden', true);
     pauseBtn.removeAttribute('hidden');
@@ -101,6 +126,7 @@ function stopbs() {
     interpreter.memPos = 0;
     interpreter.mem = [0];
     interpreter.programStep = 0;
+    _this.output.innerHTML = '';
     stopBtn.setAttribute('hidden', true);
     pauseBtn.setAttribute('hidden', true);
     continueBtn.setAttribute('hidden', true);
