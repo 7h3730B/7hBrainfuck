@@ -89,12 +89,17 @@ let pauseBtn = document.getElementById('pause');
 let stopBtn = document.getElementById('stop');
 let continueBtn = document.getElementById('continue');
 
+let delay = 50;
 let interval;
 let interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'), document.getElementById("input"), interval);;
 
 function play() {
+    interpreter.memPos = 0;
+    interpreter.mem = [0];
+    interpreter.programStep = 0;
+    interpreter.output.innerHTML = '';
     interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'), document.getElementById("input"), interval);
-    interval = setInterval(interpreter.step.bind(interpreter), 50);
+    interval = setInterval(interpreter.step.bind(interpreter), delay);
     playBtn.setAttribute('hidden', true);
     stepBtn.setAttribute('hidden', true);
     pauseBtn.removeAttribute('hidden');
@@ -113,7 +118,7 @@ function pause() {
 }
 
 function continuef() {
-    interval = setInterval(interpreter.step.bind(interpreter), 300);
+    interval = setInterval(interpreter.step.bind(interpreter), delay);
     continueBtn.setAttribute('hidden', true);
     playBtn.setAttribute('hidden', true);
     stepBtn.setAttribute('hidden', true);
@@ -126,7 +131,7 @@ function stopbs() {
     interpreter.memPos = 0;
     interpreter.mem = [0];
     interpreter.programStep = 0;
-    _this.output.innerHTML = '';
+    interpreter.output.innerHTML = '';
     stopBtn.setAttribute('hidden', true);
     pauseBtn.setAttribute('hidden', true);
     continueBtn.setAttribute('hidden', true);
