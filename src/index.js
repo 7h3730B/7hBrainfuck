@@ -36,7 +36,7 @@ class Interpreter {
                 break;
             case '+':
                 _this.mem[_this.memPos] += 1;
-                if (_this.mem[_this.memPos] >= 255) {
+                if (_this.mem[_this.memPos] > 255) {
                     _this.mem[_this.memPos] = 0;
                 }
                 break;
