@@ -1,11 +1,13 @@
 class Interpreter {
-    constructor(program, output) {
+    constructor(program, output, input, interval) {
         this.program = program;
+        this.output = output;
+        this.input = input;
+        this.interval = interval;
         this.programStep = 0;
         this.mem = [0];
         this.memPos = 0;
-        this.tokens = ['+', '-', '>', '<'];
-        this.interval = setInterval(this.step.bind(this), 300);
+        this.tokens = ['+', '-', '>', '<', '.', ','];
     }
     step() {
         _this = this;
@@ -44,14 +46,34 @@ class Interpreter {
                     _this.mem[_this.memPos] = 255;
                 }
                 break;
+            case '.':
+                console.log(String.fromCharCode(_this.mem[_this.memPos]));
+                _this.output.innerHTML += String.fromCharCode(_this.mem[_this.memPos]);
+                break;
+            case ',':
+                let chr = window.prompt("Only one Ascii Character", "Enter a Character");
+                _this.mem[_this.memPos] = chr.charCodeAt(0);
+                break;
         }
+        console.log(_this.mem);
         _this.programStep += 1;
     }
 }
 
+let interval;
+let interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'), document.getElementById("input"), interval);
+
 function play() {
-    let interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'));
+    interval = setInterval(interpreter.step.bind(interpreter), 300);
+}
+
+function step() {
+    clearInterval(interval);
+    interpreter.step();
 }
 
 let playBtn = document.getElementById('play');
-playBtn.onclick = play();
+playBtn.onclick = play;
+
+let stepBtn = document.getElementById('step');
+stepBtn.onclick = step;
