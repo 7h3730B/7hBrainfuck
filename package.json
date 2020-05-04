@@ -1,6 +1,6 @@
 {
   "name": "7hbrainfuck",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A webpage to execute Brainfuck code and watch it execute this code",
   "main": "index.js",
   "scripts": {
