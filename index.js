@@ -11,71 +11,70 @@ class Interpreter {
         this.tokens = ['+', '-', '>', '<', '.', ',', '[', ']'];
     }
     step() {
-        _this = this;
-        if (_this.programStep > _this.program.length) {
+        if (this.programStep > this.program.length) {
             stopbs();
             return;
         }
 
-        if (!_this.tokens.includes(_this.program[_this.programStep])) {
-            _this.programStep++;
-            _this.step();
+        if (!this.tokens.includes(this.program[this.programStep])) {
+            this.programStep++;
+            this.step();
             return;
         }
 
-        switch (_this.program[_this.programStep]) {
+        switch (this.program[this.programStep]) {
             case '>':
-                _this.memPos++;
-                if (_this.mem.length <= _this.memPos) _this.mem.push(0);
+                this.memPos++;
+                if (this.mem.length <= this.memPos) this.mem.push(0);
                 break;
             case '<':
-                _this.memPos--;
-                if (_this.memPos < 0) {
+                this.memPos--;
+                if (this.memPos < 0) {
                     // TODO: error Handling: Out of memory
                     console.log("AHHHHHHHHHHHHHHHH");
                 }
                 break;
             case '+':
-                _this.mem[_this.memPos]++;
-                if (_this.mem[_this.memPos] > 255) _this.mem[_this.memPos] = 0;
+                this.mem[this.memPos]++;
+                if (this.mem[this.memPos] > 255) this.mem[this.memPos] = 0;
                 break;
             case '-':
-                _this.mem[_this.memPos]--;
-                if (_this.mem[_this.memPos] <= -1) _this.mem[_this.memPos] = 255;
+                this.mem[this.memPos]--;
+                if (this.mem[this.memPos] <= -1) this.mem[this.memPos] = 255;
                 break;
             case '.':
-                _this.output.innerHTML += String.fromCharCode(_this.mem[_this.memPos]);
+                this.output.innerHTML += String.fromCharCode(this.mem[this.memPos]);
                 break;
             case ',':
                 let chr = window.prompt("Only one Ascii Character", "Enter a Character");
-                _this.mem[_this.memPos] = chr.charCodeAt(0);
+                this.mem[this.memPos] = chr.charCodeAt(0);
                 break;
             case '[':
-                if (_this.mem[_this.memPos] == 0) {
-                    countOpened = 0;
-                    _this.programStep += 1;
-                    while (_this.programStep < _this.program.length) {
-                        if (_this.program[_this.programStep] == ']' && countOpened == 0) break;
-                        else if (_this.program[_this.programStep] == '[') countOpened += 1;
-                        else if (_this.program[_this.programStep] == ']') countOpened -= 1;
-                        _this.programStep += 1;
+                if (this.mem[this.memPos] == 0) {
+                    let countOpened = 0;
+                    this.programStep += 1;
+                    while (this.programStep < this.program.length) {
+                        if (this.program[this.programStep] == ']' && countOpened == 0) break;
+                        else if (this.program[this.programStep] == '[') countOpened += 1;
+                        else if (this.program[this.programStep] == ']') countOpened -= 1;
+                        this.programStep += 1;
                     }
                 }
                 break;
             case ']':
-                if (_this.mem[_this.memPos] != 0) {
-                    countOpened = 0;
-                    _this.programStep -= 1;
-                    while (_this.programStep >= 0) {
-                        if (_this.program[_this.programStep] == '[' && countOpened == 0) break;
-                        else if (_this.program[_this.programStep] == ']') countOpened += 1;
-                        else if (_this.program[_this.programStep] == '[') countOpened -= 1;
-                        _this.programStep -= 1;
+                if (this.mem[this.memPos] != 0) {
+                    let countOpened = 0;
+                    this.programStep -= 1;
+                    while (this.programStep >= 0) {
+                        if (this.program[this.programStep] == '[' && countOpened == 0) break;
+                        else if (this.program[this.programStep] == ']') countOpened += 1;
+                        else if (this.program[this.programStep] == '[') countOpened -= 1;
+                        this.programStep -= 1;
                     }
                 }
                 break;
         }
-        _this.programStep += 1;
+        this.programStep += 1;
     }
 }
 
