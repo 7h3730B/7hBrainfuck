@@ -29,7 +29,7 @@ section#editor button {
     margin-bottom: 5px;
 }
 
-#output-pre {
+section#output #output-pre {
     margin: 8px 18px 0 0;
     font-size: 20px;
     min-height: 20px;
