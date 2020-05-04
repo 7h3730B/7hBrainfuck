@@ -1,3 +1,2 @@
 # 7hBrainfuck
-### W.I.P
-A webpage to execute Brainfuck code and watch it execute.
+A webpage to execute Brainfuck code. [here](https://7h3730b.github.io/7hBrainfuck/)

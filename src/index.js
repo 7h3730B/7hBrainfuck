@@ -139,7 +139,6 @@ function execute() {
     pauseBtn.removeAttribute('hidden');
     stopBtn.removeAttribute('hidden');
     interpreter.output.innerHTML = '';
-    setTimeout(() => {}, 10);
     interpreter = new Interpreter(document.getElementById('source').value, document.getElementById('output-pre'), document.getElementById("input"), document.getElementById("ptr-table"), interval);
     while (interpreter.programStep <= interpreter.program.length) {
         interpreter.step(interpreter);
