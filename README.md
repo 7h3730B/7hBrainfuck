@@ -34,6 +34,6 @@ Just head over to the Demo Page and paste your Brainfuck code into the Textfield
 - [parcel-bundler](https://www.npmjs.com/package/discord.js)  
 ---
 ## License
-> You can check out the full license [here](https://github.com/7h3730B/7hISSBot/blob/master/LICENSE)   
+> You can check out the full license [here](https://github.com/7h3730B/7hBrainfuck/blob/master/LICENSE)   
 
 This project is licensed under the terms of the **MIT** license.
