@@ -1,7 +1,7 @@
 <div align="center">
-    <h1>~ 7hISSBot ~</h1>
+    <h1>~ 7hBrainfuck ~</h1>
     <strong>
-        A little Discord Bot showing you where the ISS currently is and other space related stuff.
+        A webpage to execute Brainfuck code:
     </strong><br/><br/>
     <img height="28" src="https://img.shields.io/github/license/7h3730B/7hBrainfuck?style=for-the-badge">
     <img height="28" src="https://img.shields.io/github/repo-size/7h3730B/7hBrainfuck?style=for-the-badge">
